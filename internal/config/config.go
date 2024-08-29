@@ -4,6 +4,8 @@ import (
 	"flag"
 	"os"
 	"time"
+
+	"github.com/ilyakaznacheev/cleanenv"
 )
 
 type Config struct {
@@ -24,6 +26,18 @@ func MustLoad() *Config {
 	if path == "" {
 		panic("Config path is empty")
 	}
+
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		panic("config file does not exist: " + path)
+	}
+
+	var cfg Config
+
+	if err := cleanenv.ReadConfig(path, &cfg); err != nil {
+		panic("Failed to read config: " + err.Error())
+	}
+
+	return &cfg
 }
 
 // fetchConfigPath fetches config path from command line flag or enviroment variable.
