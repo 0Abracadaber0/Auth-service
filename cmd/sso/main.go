@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"sso/internal/app"
 	"sso/internal/config"
 )
 
@@ -24,7 +25,8 @@ func main() {
 		slog.Any("cfg", cfg),
 	)
 
-	// TODO: инициализация приложения (app)
+	application := app.New(log, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTTL)
+	application.GRPCServer.MustRun()
 
 	// TODO: запустить gRPC-сервер приложения
 }
