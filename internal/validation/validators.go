@@ -40,3 +40,10 @@ func validateAppId(appId int32) error {
 	}
 	return nil
 }
+
+func validateUserId(userId int32) error {
+	if userId == emptyValue {
+		return status.Error(codes.InvalidArgument, "userId is required")
+	}
+	return nil
+}

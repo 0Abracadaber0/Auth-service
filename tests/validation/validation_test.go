@@ -110,8 +110,6 @@ func TestLoginRequestValidator_Validate(t *testing.T) {
 		},
 	}
 
-	// TODO: Make more tests
-
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			validator := &validation.LoginRequestValidator{Request: tt.request}
